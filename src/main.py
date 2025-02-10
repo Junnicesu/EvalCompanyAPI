@@ -3,10 +3,17 @@ import requests
 import xmltodict
 from pydantic import BaseModel
 import logging
+import os
 
 app = FastAPI()
 
-BASE_XML_URL = "https://raw.githubusercontent.com/MiddlewareNewZealand/evaluation-instructions/main/xml-api/{id}.xml"
+# BASE_XML_URL = "https://raw.githubusercontent.com/MiddlewareNewZealand/evaluation-instructions/main/xml-api/{id}.xml"
+# read from the env
+BASE_XML_URL = os.getenv("BASE_XML_URL", "https://raw.githubusercontent.com/MiddlewareNewZealand/evaluation-instructions/main/xml-api/")
+
+logging.info(f"Using BASE_XML_URL: {BASE_XML_URL}")  # Debugging purpose
+
+BASE_XML_URL += "{id}.xml"
 
 class Company(BaseModel):
     id: int
