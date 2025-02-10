@@ -1,0 +1,24 @@
+---
+config:
+  layout: fixed
+---
+flowchart TD
+ subgraph Deployment["Deployment"]
+        B["FastAPI Application"]
+        E["Terraform + Docker Deployment"]
+        F["Docker Container"]
+  end
+    A["Client (User/Browser)"] -- Request --> B
+    B -- Fetch XML Data --> C["Static XML API (GitHub XML Files)"]
+    C -- Returns XML --> B
+    B -- Transform XML to JSON --> D["JSON Response to Client"]
+    E -- Deploys --> B
+    B -- Runs in --> F
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style E fill:#ddd,stroke:#333,stroke-width:2px
+    style F fill:#bbb,stroke:#333,stroke-width:2px
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#afa,stroke:#333,stroke-width:2px
+    style D fill:#ff9,stroke:#333,stroke-width:2px
+
+# for mermaidchart.com
