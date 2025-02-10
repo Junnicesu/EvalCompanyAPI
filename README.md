@@ -11,6 +11,13 @@ This is a FastAPI-based backend application that fetches company data from a sta
 
 ---
 
+## System Design
+
+The following diagram illustrates the architecture of the MWNZ Companies API:
+![system_design](images/system_design.png)
+
+---
+
 ## Deployment & Usage
 
 ### Deploy with Terraform and Docker
