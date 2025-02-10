@@ -105,5 +105,5 @@ This project is licensed under the MIT License.
 ---
 
 ## Contact
-For issues, please open a GitHub Issue or contact [your.email@example.com](mailto:tobexinminsu@gmail.com).
+For issues, please open a GitHub Issue or contact [tobexinminsu@gmail.com](mailto:tobexinminsu@gmail.com).
 
