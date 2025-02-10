@@ -53,7 +53,7 @@ curl -X GET "http://127.0.0.1:8000/companies/1" -H "Accept: application/json"
 ```
 ---
 
-## Deploy with Terraform and Docker
+## Demo Deployment and Test
 ![deploy_by_terraform](images/deploy-terraform.gif)
 ![test_w_browser](images/Test_W_browser.gif)
 

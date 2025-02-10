@@ -1,15 +1,19 @@
+import logging
+import os
 from fastapi import FastAPI, HTTPException
 import requests
 import xmltodict
 from pydantic import BaseModel
-import logging
-import os
 
 app = FastAPI()
 
-# BASE_XML_URL = "https://raw.githubusercontent.com/MiddlewareNewZealand/evaluation-instructions/main/xml-api/{id}.xml"
+BASE_XML_URL = (
+    "https://raw.githubusercontent.com/MiddlewareNewZealand/"
+    "evaluation-instructions/main/xml-api/"
+) #default 
+
 # read from the env
-BASE_XML_URL = os.getenv("BASE_XML_URL", "https://raw.githubusercontent.com/MiddlewareNewZealand/evaluation-instructions/main/xml-api/")
+BASE_XML_URL = os.getenv("BASE_XML_URL", BASE_XML_URL)
 
 logging.info(f"Using BASE_XML_URL: {BASE_XML_URL}")  # Debugging purpose
 
