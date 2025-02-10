@@ -28,6 +28,7 @@ This project includes a Terraform script to deploy the FastAPI application using
 cd infrastructure
 terraform init
 terraform apply -auto-approve
+# terraform apply -var="BASE_XML_URL=https://another-xml-api.example.com/" -auto-approve
 ```
 
 #### **2. Verify Running Container**
