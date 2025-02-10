@@ -10,7 +10,7 @@ terraform {
 provider "docker" {}
 
 resource "docker_image" "evalcompimg" {
-  name         = "tobexinminsu/evalcompanyapi:0.0.1"  # Replace with your image name
+  name         = "tobexinminsu/evalcompanyapi:0.0.2"  # Replace with your image name
   keep_locally = false  # Ensures the image stays on your system
 }
 
@@ -22,6 +22,10 @@ resource "docker_container" "evalcomp_container" {
     internal = 8000
     external = 8000
   }
+
+  env = [
+    "BASE_XML_URL=${var.BASE_XML_URL}"
+  ]
 
   restart = "always"
 }
