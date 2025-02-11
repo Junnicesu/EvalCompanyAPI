@@ -30,7 +30,7 @@ class ErrorResponse(BaseModel):
     error_description: str
 
 @app.get(
-        "/companies/{id}", response_model=Company, responses={404: {"model": ErrorResponse}}
+    "/companies/{id}", response_model=Company, responses={404: {"model": ErrorResponse}}
 )
 def get_company(id: int):
     xml_url = BASE_XML_URL.format(id=id)
