@@ -30,6 +30,7 @@ jobs:
       - name: Test API Endpoint
         run: |
           curl --fail http://127.0.0.1:8000/docs
+          curl -X 'GET' 'http://127.0.0.1:8000/companies/1' -H 'accept: application/json'
 
       - name: Stop and Remove Container
         if: always()
