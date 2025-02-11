@@ -10,8 +10,8 @@ terraform {
 provider "docker" {}
 
 resource "docker_image" "evalcompimg" {
-  name         = "tobexinminsu/evalcompanyapi:0.0.2"  # Replace with your image name
-  keep_locally = false                                # Ensures the image stays on your system
+  name         = "tobexinminsu/evalcompanyapi:0.0.2" # Replace with your image name
+  keep_locally = false                               # Ensures the image stays on your system
 }
 
 resource "docker_container" "evalcomp_container" {

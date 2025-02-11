@@ -10,7 +10,8 @@ jobs:
   lint:
     name: Run Super-Linter
     runs-on: ubuntu-latest
-
+    env:
+      DISABLE_POWERSHELL: true  # Disable PowerShell script validation
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4

@@ -1,8 +1,9 @@
 import logging
 import os
-from fastapi import FastAPI, HTTPException
+
 import requests
 import xmltodict
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -10,7 +11,7 @@ app = FastAPI()
 BASE_XML_URL = (
     "https://raw.githubusercontent.com/MiddlewareNewZealand/"
     "evaluation-instructions/main/xml-api/"
-) #default 
+) # default 
 
 # read from the env
 BASE_XML_URL = os.getenv("BASE_XML_URL", BASE_XML_URL)
@@ -28,7 +29,9 @@ class ErrorResponse(BaseModel):
     error: str
     error_description: str
 
-@app.get("/companies/{id}", response_model=Company, responses={404: {"model": ErrorResponse}})
+@app.get(
+        "/companies/{id}", response_model=Company, responses={404: {"model": ErrorResponse}}
+)
 def get_company(id: int):
     xml_url = BASE_XML_URL.format(id=id)
     logging.info(f"Fetching XML from: {xml_url}")
@@ -53,7 +56,7 @@ def get_company(id: int):
         return Company(
             id=int(company["id"]),
             name=company["name"],
-            description=company["description"]
+            description=company["description"],
         )
 
     except Exception as e:

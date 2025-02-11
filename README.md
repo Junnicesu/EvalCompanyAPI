@@ -92,11 +92,10 @@ uvicorn src.main:app --reload
 ---
 
 ## Project Structure
-```
+```text
 .
 ├── src/
 │   ├── main.py        # FastAPI app entry point
-│   ├── models.py      # Pydantic models
 │
 ├── infrastructure/    # Terraform deployment scripts
 ├── requirements.txt   # Python dependencies
