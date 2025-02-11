@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# default 
+# default
 BASE_XML_URL = (
     "https://raw.githubusercontent.com/MiddlewareNewZealand/"
     "evaluation-instructions/main/xml-api/"
@@ -31,6 +31,7 @@ class Company(BaseModel):
 class ErrorResponse(BaseModel):
     error: str
     error_description: str
+
 
 @app.get(
     "/companies/{id}", response_model=Company, responses={404: {"model": ErrorResponse}}
