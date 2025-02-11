@@ -61,25 +61,25 @@ curl -X GET "http://127.0.0.1:8000/companies/1" -H "Accept: application/json"
 
 ## Installation & Setup
 
-### **1. Clone the Repository
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/Junnicesu/EvalCompanyAPI.git
 cd EvalCompanyAPI
 ```
 
-### **2. Create and Activate a Virtual Environment
+### 2. Create and Activate a Virtual Environment
 ```bash
 python3 -m venv venv  # Create virtual environment
 source venv/bin/activate  # Activate (Linux/macOS)
 venv\Scripts\activate  # Activate (Windows)
 ```
 
-### **3. Install Dependencies
+### 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### **4. Run the FastAPI Application
+### 4. Run the FastAPI Application
 ```bash
 uvicorn src.main:app --reload
 ```
