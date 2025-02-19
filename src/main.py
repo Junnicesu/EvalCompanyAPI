@@ -6,7 +6,9 @@ import xmltodict
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+# app = FastAPI()
+# sj: Bad code
+
 
 # default
 BASE_XML_URL = (
