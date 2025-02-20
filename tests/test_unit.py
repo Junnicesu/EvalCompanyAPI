@@ -6,7 +6,9 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../s
 
 import pytest
 from fastapi.testclient import TestClient
+from unittest.mock import patch, AsyncMock
 from main import app  # Now this import should work
+
 client = TestClient(app)
 
 def test_get_company_success():
@@ -29,3 +31,18 @@ def test_favicon():
     response = client.get("/favicon.ico")
     assert response.status_code == 200
     assert response.headers["content-type"] == "image/vnd.microsoft.icon"
+
+
+# Malformed XML string
+malformed_xml = "<Data><id>1<id><name>Company Name</name><description>Description</description>"
+
+def test_malformed_xml():
+    # Mock the httpx.AsyncClient.get method to return a response with malformed XML
+    with patch("httpx.AsyncClient.get", new_callable=AsyncMock) as mock_get:
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.text = malformed_xml
+
+        response = client.get("/companies/1")
+
+        assert response.status_code == 500
+        assert "Error processing XML" in response.json()["detail"]
