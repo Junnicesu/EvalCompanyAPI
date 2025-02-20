@@ -1,5 +1,5 @@
-import logging
 import os
+import logging
 
 import httpx
 import xmltodict
@@ -10,8 +10,16 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+# Calculate the absolute path to the images directory
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+images_dir = os.path.join(base_dir, "images")
+
+# Check if the images directory exists
+if not os.path.exists(images_dir):
+    raise RuntimeError(f"Directory '{images_dir}' does not exist")
+
 # Mount the images directory
-app.mount("/images", StaticFiles(directory="images"), name="images")
+app.mount("/images", StaticFiles(directory=images_dir), name="images")
 
 # Serve the favicon
 @app.get("/favicon.ico", include_in_schema=False)
@@ -84,4 +92,3 @@ async def get_company(id: int):
 
 
 # Run the server with: uvicorn src.main:app --reload
-        raise HTTPException(status_code=500, detail=f"Error processing XML: {str(e)}")
