@@ -1,12 +1,22 @@
 import logging
 import os
 
-import requests
+import httpx
 import xmltodict
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 app = FastAPI()
+
+# Mount the images directory
+app.mount("/images", StaticFiles(directory="images"), name="images")
+
+# Serve the favicon
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return RedirectResponse(url="/images/MW-sj.ico")
 
 # default
 BASE_XML_URL = (
@@ -18,6 +28,7 @@ BASE_XML_URL = (
 BASE_XML_URL = os.getenv("BASE_XML_URL", BASE_XML_URL)
 
 logging.info(f"Using BASE_XML_URL: {BASE_XML_URL}")  # Debugging purpose
+logging.info(f"Using BASE_XML_URL: {BASE_XML_URL}")
 
 BASE_XML_URL += "{id}.xml"
 
@@ -36,11 +47,12 @@ class ErrorResponse(BaseModel):
 @app.get(
     "/companies/{id}", response_model=Company, responses={404: {"model": ErrorResponse}}
 )
-def get_company(id: int):
+async def get_company(id: int):
     xml_url = BASE_XML_URL.format(id=id)
     logging.info(f"Fetching XML from: {xml_url}")
 
-    response = requests.get(xml_url)
+    async with httpx.AsyncClient() as client:
+        response = await client.get(xml_url)
 
     if response.status_code != 200:
         raise HTTPException(
@@ -53,7 +65,9 @@ def get_company(id: int):
 
     try:
         xml_data = xmltodict.parse(response.text)
-        print("Parsed XML Data:", xml_data)  # Print parsed data
+        logging.info("Parsed XML Data:")
+        logging.info(xml_data)  # Log parsed data
+        logging.info(xml_data)
 
         company = xml_data.get("Data")
         if not company:
@@ -69,4 +83,5 @@ def get_company(id: int):
         raise HTTPException(status_code=500, detail=f"Error processing XML: {str(e)}")
 
 
-# Run the server with: uvicorn main:app --reload
+# Run the server with: uvicorn src.main:app --reload
+        raise HTTPException(status_code=500, detail=f"Error processing XML: {str(e)}")
