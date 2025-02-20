@@ -73,11 +73,16 @@ async def get_company(id: int):
 
     try:
         xml_data = xmltodict.parse(response.text)
-        logging.info("Parsed XML Data:")
-        logging.info(xml_data)  # Log parsed data
-        logging.info(xml_data)
+        logging.info("Parsed XML Data:", xml_data)  # Print parsed data for debugging
 
-        company = xml_data.get("Data")
+        # Dynamically find the root element that contains company data.  
+        # The root element of your XML can vary widely, such as <Entity>, <Ltd>, <Company>, etc.
+        company = None
+        for key, value in xml_data.items():
+            if isinstance(value, dict) and all(k in value for k in ["id", "name", "description"]):
+                company = value
+                break
+
         if not company:
             raise HTTPException(status_code=404, detail="Company not found in XML")
 

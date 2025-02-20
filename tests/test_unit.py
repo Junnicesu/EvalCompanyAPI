@@ -46,3 +46,33 @@ def test_malformed_xml():
 
         assert response.status_code == 500
         assert "Error processing XML" in response.json()["detail"]
+
+
+def generate_xml_with_root(root_name):
+    return f"""
+<{root_name}>
+    <id>1</id>
+    <name>Company A</name>
+    <description>A description</description>
+</{root_name}>
+"""
+
+def test_configurable_root_element():
+    # Generate XML with a configurable root element name
+    root_name = "CustomRoot"
+    xml_data = generate_xml_with_root(root_name)
+
+    # Mock the httpx.AsyncClient.get method to return the generated XML
+    with patch("httpx.AsyncClient.get", new_callable=AsyncMock) as mock_get:
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.text = xml_data
+
+        response = client.get("/companies/1")
+
+        # Assertions
+        assert response.status_code == 200
+        assert response.json() == {
+            "id": 1,
+            "name": "Company A",
+            "description": "A description"
+        }
