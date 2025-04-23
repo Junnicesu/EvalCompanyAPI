@@ -8,7 +8,9 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-app = FastAPI()
+# app = FastAPI()
+# sj: Bad code
+
 
 # Calculate the absolute path to the images directory
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
